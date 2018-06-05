@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.a38938.ttms1.Users_Activity">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="用户信息"
+                android:textSize="25dp"
+                android:gravity="center_horizontal"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="230dp"
+                    android:layout_height="match_parent"
+                    android:text="用户名：AAA123132
+权限：经理"
+                    android:gravity="center"/>
+                <Button android:id="@+id/user_modify"
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:text="修改"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp"
+                    android:background="#66B3FF"
+                    />
+                <Button android:id="@+id/user_delete"
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFFFFF"
+                    android:text="删除"
+                    android:textSize="25dp"
+                    android:background="#FF5809"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="230dp"
+                    android:layout_height="match_parent"
+                    android:text="用户名：AAA123132
+权限：管理员"
+                    android:gravity="center"/>
+                <Button
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:text="修改"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp"
+                    android:background="#66B3FF"
+                    />
+                <Button
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFFFFF"
+                    android:text="删除"
+                    android:textSize="25dp"
+                    android:background="#FF5809"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="230dp"
+                    android:layout_height="match_parent"
+                    android:text="用户名：AAA123132
+权限：售票员"
+                    android:gravity="center"/>
+                <Button
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:text="修改"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp"
+                    android:background="#66B3FF"
+                    />
+                <Button
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFFFFF"
+                    android:text="删除"
+                    android:textSize="25dp"
+                    android:background="#FF5809"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="230dp"
+                    android:layout_height="match_parent"
+                    android:text="用户名：AAA123132
+权限：副经理"
+                    android:gravity="center"/>
+                <Button
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:text="修改"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp"
+                    android:background="#66B3FF"
+                    />
+                <Button
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFFFFF"
+                    android:text="删除"
+                    android:textSize="25dp"
+                    android:background="#FF5809"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="230dp"
+                    android:layout_height="match_parent"
+                    android:text="用户名：AAA123132
+权限：保安队长"
+                    android:gravity="center"/>
+                <Button
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:text="修改"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp"
+                    android:background="#66B3FF"
+                    />
+                <Button
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFFFFF"
+                    android:text="删除"
+                    android:textSize="25dp"
+                    android:background="#FF5809"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
+
+

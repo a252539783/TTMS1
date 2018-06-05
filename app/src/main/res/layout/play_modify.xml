@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/play_edit_img_select_container"
+            android:layout_height="200dp">
+            <TextView
+                android:id="@+id/play_edit_img_select"
+                android:layout_width="150dp"
+                android:text="选择图片"
+                android:background="@drawable/select_text_bg"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:gravity="center"
+                android:layout_height="200dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/play_edit_img"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/play_edit_t_name"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/play_edit_img"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:text="剧目名称"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/play_edit_e_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_img"
+            android:layout_toRightOf="@id/play_edit_t_name"
+            android:hint="请输入姓名" />
+
+        <TextView
+            android:id="@+id/play_edit_t_director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_name"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:text="导演"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/play_edit_e_director"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_name"
+            android:layout_toRightOf="@id/play_edit_t_name"
+            android:hint="请输入姓名" />
+
+        <TextView
+            android:id="@+id/play_edit_t_actor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_director"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:text="主演"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/play_edit_e_actor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_director"
+            android:layout_toRightOf="@id/play_edit_t_name"
+            android:hint="请输入姓名" />
+
+
+        <TextView
+            android:id="@+id/play_edit_t_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_actor"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:text="简介"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/play_edit_e_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_actor"
+            android:layout_toRightOf="@id/play_edit_t_name"
+            android:hint="请输入姓名" />
+
+        <TextView
+            android:id="@+id/play_edit_t_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_intro"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:text="时长"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/play_edit_e_length"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_intro"
+            android:inputType="number"
+            android:layout_toRightOf="@id/play_edit_t_name"
+            android:hint="请输入姓名" />
+
+
+        <TextView
+            android:id="@+id/play_edit_t_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_edit_t_length"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:text="评分"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/play_edit_e_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_below="@id/play_edit_t_length"
+            android:layout_toRightOf="@id/play_edit_t_name"
+            android:hint="请输入姓名" />
+
+        <Button
+            android:id="@+id/play_edit_b_save"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_below="@+id/play_edit_t_score"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="#FF00"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+</ScrollView>
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/main"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="首页" />
+        <item
+            android:id="@+id/login"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="登录" />
+        <item
+            android:id="@+id/usrs_management"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="用户管理" />
+        <item
+            android:id="@+id/play_management"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="剧目管理" />
+        <item
+            android:id="@+id/stdio_management"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="演出厅管理" />
+        <item
+            android:id="@+id/schedule_management"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="演出计划" />
+        <item
+            android:id="@+id/tickets_management"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="购票" />
+        <item
+            android:id="@+id/analysis_management"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="销售分析" />
+    </group>
+
+
+
+</menu>

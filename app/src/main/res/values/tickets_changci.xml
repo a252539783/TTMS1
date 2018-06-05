@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tickets_changci">
+        <item>2018年4月20日10:50 杜比3D音效大厅</item>
+        <item>2018年4月20日12:50 杜比2D音效大厅</item>
+        <item>2018年4月20日15:30 3D 5号厅</item>
+        <item>2018年4月20日19:20 VIP厅</item>
+    </string-array>
+</resources>

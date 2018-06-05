@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="60dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:paddingLeft="16dp"
+        android:text="18:00"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:id="@+id/schedule_item_start"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:paddingLeft="16dp"
+        android:text="18:00结束"
+        android:id="@+id/schedule_item_end"
+        android:layout_below="@id/schedule_item_start"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:paddingLeft="32dp"
+        android:text="1号厅"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:id="@+id/schedule_item_studio"
+        android:layout_toRightOf="@id/schedule_item_end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:paddingLeft="32dp"
+        android:text="余座888"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:id="@+id/schedule_item_seat"
+        android:layout_toRightOf="@id/schedule_item_end"
+        android:layout_below="@id/schedule_item_studio"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|right"
+        android:paddingRight="16dp"
+        android:text="¥666"
+        android:id="@+id/schedule_item_price"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <com.example.a38938.ttms1.view.SeatView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/seat_manage_view" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:layout_margin="16dp"
+        android:id="@+id/seat_manage_b_addcol"
+        android:text="添加列"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_toLeftOf="@id/seat_manage_b_addcol"
+        android:id="@+id/seat_manage_b_addrow"
+        android:background="@android:color/transparent"
+        android:text="添加行" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_above="@id/seat_manage_b_addcol"
+        android:id="@+id/seat_manage_b_mincol"
+        android:text="减少列"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seat_manage_b_addcol"
+        android:layout_toLeftOf="@id/seat_manage_b_addcol"
+        android:id="@+id/seat_manage_b_minrow"
+        android:background="@android:color/transparent"
+        android:text="减少行" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:id="@+id/seat_manage_b_save"
+        android:background="@android:color/transparent"
+        android:text="保存" />
+
+</RelativeLayout>
