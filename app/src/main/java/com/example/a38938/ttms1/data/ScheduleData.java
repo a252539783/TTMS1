@@ -2,6 +2,7 @@ package com.example.a38938.ttms1.data;
 
 import android.content.ContentValues;
 
+import com.example.a38938.ttms1.store.AccessHelper;
 import com.example.a38938.ttms1.store.StoreBusiness;
 
 /**
@@ -11,9 +12,9 @@ import com.example.a38938.ttms1.store.StoreBusiness;
 public class ScheduleData extends Data {
 
     public long play = 0;
-    public String start = "00:00", end = "00:00";
-    public int studio = 0, seat = 0;
-    public int price = 0;
+    public long start = 0, end = 0;
+    public long studio = 0;
+    public float price = 0;
 
     public ScheduleData() {
         type = TYPE_SCHEDULE;
@@ -25,9 +26,37 @@ public class ScheduleData extends Data {
         cv.put(StoreBusiness.ROW_PLAY, play);
         cv.put(StoreBusiness.ROW_END, end);
         cv.put(StoreBusiness.ROW_START, start);
-        cv.put(StoreBusiness.ROW_SEAT, seat);
         cv.put(StoreBusiness.ROW_STUDIO, studio);
         cv.put(StoreBusiness.ROW_PRICE, price);
         return cv;
+    }
+
+    public ScheduleData copy() {
+        ScheduleData sd = new ScheduleData();
+        sd.id = id;
+        sd.play = play;
+        sd.studio = studio;
+        sd.start = start;
+        sd.end = end;
+        sd.price = price;
+
+        return sd;
+    }
+
+    public void set(ScheduleData sd) {
+        id = sd.id;
+        play = sd.play;
+        studio = sd.studio;
+        start = sd.start;
+        end = sd.end;
+        price = sd.price;
+    }
+
+    public PlayData getPlay() {
+        return AccessHelper.sPlays.get(play);
+    }
+
+    public StudioData getStudio() {
+        return AccessHelper.sStudios.get(studio);
     }
 }

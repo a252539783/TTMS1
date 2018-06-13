@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:id="@+id/schedule_edit_t_play"
+        android:paddingLeft="16dp"
+        android:text="点击选择剧目"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:id="@+id/schedule_edit_split"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_marginTop="40dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="-"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_toLeftOf="@id/schedule_edit_split"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center"
+        android:text="开始"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_toRightOf="@id/schedule_edit_split"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:text="结束"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_marginTop="40dp"
+        android:layout_toLeftOf="@id/schedule_edit_split"
+        android:id="@+id/schedule_edit_select_start_m"
+        android:entries="@array/min"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text=":"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_toLeftOf="@id/schedule_edit_select_start_m"
+        android:id="@+id/schedule_edit_split_start"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_marginTop="40dp"
+        android:layout_toLeftOf="@id/schedule_edit_split_start"
+        android:id="@+id/schedule_edit_select_start_h"
+        android:entries="@array/hour"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/schedule_edit_split"
+        android:id="@+id/schedule_edit_select_end_h"
+        android:entries="@array/hour"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text=":"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_toRightOf="@id/schedule_edit_select_end_h"
+        android:id="@+id/schedule_edit_split_end"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:layout_toRightOf="@id/schedule_edit_split_end"
+        android:layout_below="@id/schedule_edit_t_play"
+        android:layout_marginTop="40dp"
+        android:id="@+id/schedule_edit_select_end_m"
+        android:entries="@array/min"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/schedule_edit_select_start_m"
+        android:paddingLeft="16dp"
+        android:text="价钱:"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:id="@+id/schedule_edit_t_price"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@id/schedule_edit_t_price"
+        android:layout_below="@id/schedule_edit_select_start_m"
+        android:minEms="3"
+        android:id="@+id/schedule_edit_e_price"
+        android:inputType="numberDecimal"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:id="@+id/schedule_edit_t_studio"
+        android:layout_below="@id/schedule_edit_t_price"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:text="点击选择演出厅"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="保存"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@id/schedule_edit_t_studio"
+        android:id="@+id/schedule_edit_b_save"/>
+
+</RelativeLayout>

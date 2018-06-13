@@ -1,28 +1,20 @@
 package com.example.a38938.ttms1;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.a38938.ttms1.data.Data;
-import com.example.a38938.ttms1.data.PlayData;
-import com.example.a38938.ttms1.data.ScheduleData;
-import com.example.a38938.ttms1.store.StoreManager;
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
@@ -32,10 +24,13 @@ public class MainActivity extends AppCompatActivity
     private MFragment mMainFragment = null;
     private MFragment mPlayFragment = null;
     private MFragment mStudioManageFragment = null;
+    private MFragment mScheduleManageFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkPermission();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,6 +55,15 @@ public class MainActivity extends AppCompatActivity
 //        dd.actors = dd.director = "test";
 //        ds = StoreManager.get().getPlays();
 //        Log.e("xx", " " + ds.size());
+    }
+
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= 16) {
+            if (ContextCompat.checkSelfPermission(MainActivity.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},1);
+            }
+        }
     }
 
     @Override
@@ -120,9 +124,11 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, mCurrent = mStudioManageFragment).commit();
 
         } else if (id == R.id.schedule_management) {
-            Intent schedule_intent = new Intent(MainActivity.this,Schedule_Activity.class);
-            startActivity(schedule_intent);
+            if (mScheduleManageFragment == null) {
+                mScheduleManageFragment = new ScheduleManageFragment();
+            }
 
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, mCurrent = mScheduleManageFragment).commit();
         } else if (id == R.id.tickets_management) {
             Intent tickets_intent = new Intent(MainActivity.this,Tickets_Activity.class);
             startActivity(tickets_intent);

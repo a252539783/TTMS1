@@ -2,6 +2,9 @@ package com.example.a38938.ttms1.store;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.util.LongSparseArray;
+import android.util.SparseArray;
+import android.util.SparseLongArray;
 
 import com.example.a38938.ttms1.data.Data;
 import com.example.a38938.ttms1.data.PlayData;
@@ -17,13 +20,16 @@ import java.util.List;
  */
 
 public abstract class AccessHelper<T> {
+    public static LongSparseArray<PlayData> sPlays = new LongSparseArray<>();
+    public static LongSparseArray<ScheduleData> sSchedules = new LongSparseArray<>();
+    public static LongSparseArray<StudioData> sStudios = new LongSparseArray<>();
+
     private static HashMap<Class, AccessHelper> mHelpers = new HashMap<>();
     static {
         mHelpers.put(ScheduleData.class, new AccessHelper<ScheduleData>() {
             private int PLAY_INDEX = -1;
             private int START_INDEX = -1;
             private int END_INDEX = -1;
-            private int SEAT_INDEX = -1;
             private int STUDIO_INDEX = -1;
             private int PRICE_INDEX = -1;
             private int ID_INDEX = -1;
@@ -41,7 +47,6 @@ public abstract class AccessHelper<T> {
                         PLAY_INDEX = c.getColumnIndex(StoreBusiness.ROW_PLAY);
                         START_INDEX = c.getColumnIndex(StoreBusiness.ROW_START);
                         END_INDEX = c.getColumnIndex(StoreBusiness.ROW_END);
-                        SEAT_INDEX = c.getColumnIndex(StoreBusiness.ROW_SEAT);
                         STUDIO_INDEX = c.getColumnIndex(StoreBusiness.ROW_STUDIO);
                         PRICE_INDEX = c.getColumnIndex(StoreBusiness.ROW_PRICE);
                         ID_INDEX = c.getColumnIndex(StoreBusiness.ROW_ID);
@@ -51,13 +56,20 @@ public abstract class AccessHelper<T> {
                     while (c.moveToNext()) {
                         ScheduleData data = new ScheduleData();
                         data.play = c.getInt(PLAY_INDEX);
-                        data.price = c.getInt(PRICE_INDEX);
-                        data.start = c.getString(START_INDEX);
-                        data.end = c.getString(END_INDEX);
+                        data.price = c.getFloat(PRICE_INDEX);
+                        data.start = c.getLong(START_INDEX);
+                        data.end = c.getLong(END_INDEX);
                         data.studio = c.getInt(STUDIO_INDEX);
-                        data.seat = c.getInt(SEAT_INDEX);
                         data.id = c.getLong(ID_INDEX);
 
+                        if (sPlays.get(data.play) == null) {
+                            StoreManager.get().cachePlay(data.play);
+                        }
+
+                        if (sStudios.get(data.studio) == null) {
+                            StoreManager.get().cacheStudio(data.studio);
+                        }
+                        sSchedules.put(data.id, data);
                         datas.add(data);
                     }
                     return datas;
@@ -118,6 +130,7 @@ public abstract class AccessHelper<T> {
                         data.id = c.getLong(ROW_ID);
                         data.length = c.getInt(ROW_LENGTH);
 
+                        sPlays.put(data.id, data);
                         datas.add(data);
                     }
                     return datas;
@@ -173,6 +186,7 @@ public abstract class AccessHelper<T> {
                             }
                         }
 
+                        sStudios.put(data.id, data);
                         datas.add(data);
                     }
                     return datas;

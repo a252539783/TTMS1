@@ -37,7 +37,7 @@ public class MainFragment extends MFragment {
     private PagerContainer mPagerContainer = null;
 
     private CoverFlow mCover = null;
-    private ScheduleListAdapter mAdapter = new ScheduleListAdapter();
+    private ScheduleListAdapter mAdapter = new ScheduleListAdapter(null);
 
     @Nullable
     @Override

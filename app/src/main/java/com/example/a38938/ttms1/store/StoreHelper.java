@@ -29,8 +29,8 @@ public class StoreHelper extends SQLiteOpenHelper {
             "start text,\n" +
             "end text,\n" +
             "studio integer,\n" +
-            "seat integer,\n" +
-            "price integer);";
+            "price integer," +
+            "sold text);";
     private static final String SQL_CREATE_PLAY = "CREATE TABLE IF NOT EXISTS play(id integer NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
             "name text,\n" +
             "director text,\n" +

@@ -30,40 +30,66 @@ public class PlayManageAdapter extends RecyclerView.Adapter implements View.OnCl
     private boolean selectAll = false;
 
     private PlayManageFragment mFragment;
+    private Selector<PlayData> mSelector;
 
     public PlayManageAdapter(PlayManageFragment f) {
         mFragment = f;
     }
 
+    public PlayManageAdapter(Selector<PlayData> s) {
+        mSelector = s;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new H(LayoutInflater.from(parent.getContext()).inflate(R.layout.play_item, parent, false));
+        return viewType == 0 ? new H(LayoutInflater.from(parent.getContext()).inflate(R.layout.play_item, parent, false))
+        :new NoHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.no_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        PlayData data = mDatas.get(position);
-        H h = (H) holder;
-        h.director.setText("导演:" + data.director);
-        h.name.setText("名称:" + data.name);
-        h.actor.setText("主演:" + data.actors);
-        h.score.setText("评分" + String.valueOf(data.score));
+        if (holder instanceof  H) {
+            PlayData data = mDatas.get(position);
+            H h = (H) holder;
+            h.director.setText("导演:" + data.director);
+            h.name.setText("名称:" + data.name);
+            h.actor.setText("主演:" + data.actors);
+            h.score.setText("评分" + String.valueOf(data.score));
 
-        h.img.setImageURI(data.imgPath == null ? null : Uri.fromFile(new File(data.imgPath)));
-        if (select) {
-            h.check.setVisibility(View.VISIBLE);
-            h.check.setChecked(mSelected.contains(position));
+            h.img.setImageURI(data.imgPath == null ? null : Uri.fromFile(new File(data.imgPath)));
+            if (select) {
+                h.check.setVisibility(View.VISIBLE);
+                h.check.setChecked(mSelected.contains(position));
+            } else {
+                h.check.setVisibility(View.INVISIBLE);
+            }
+
+            h.itemView.setOnClickListener(this);
+            if (mFragment != null) {
+                h.itemView.setOnLongClickListener(this);
+            }
         } else {
-            h.check.setVisibility(View.INVISIBLE);
+            NoHolder h = (NoHolder) holder;
+            if (mDatas == null) {
+                h.t.setText("加载中...");
+            } else {
+                h.t.setText("没有数据...");
+            }
         }
-
-        h.itemView.setOnClickListener(this);
-        h.itemView.setOnLongClickListener(this);
     }
 
     @Override
     public int getItemCount() {
-        return mDatas == null ? 0 : mDatas.size();
+        return mDatas == null ? 1 : mDatas.size() == 0 ? 1 : mDatas.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mDatas == null || mDatas.size() == 0) {
+            return 666;
+        }
+
+        return 0;
     }
 
     public void setData(List<PlayData> data) {
@@ -76,7 +102,9 @@ public class PlayManageAdapter extends RecyclerView.Adapter implements View.OnCl
         select = false;
         mSelected.clear();
         selectAll = false;
-        mFragment.hideDelete();
+        if (mFragment != null) {
+            mFragment.hideDelete();
+        }
         notifyDataSetChanged();
     }
 
@@ -90,6 +118,10 @@ public class PlayManageAdapter extends RecyclerView.Adapter implements View.OnCl
 
     @Override
     public void onClick(View v) {
+        if (mDatas == null || mDatas.size() == 0) {
+            return;
+        }
+
         H h = (H) v.getTag();
         if (select) {
             if (mSelected.contains(h.getAdapterPosition())) {
@@ -99,7 +131,13 @@ public class PlayManageAdapter extends RecyclerView.Adapter implements View.OnCl
             }
             notifyItemChanged(h.getAdapterPosition());
         } else {
-            mFragment.edit(mDatas.get(h.getAdapterPosition()));
+            if (mFragment != null) {
+                mFragment.edit(mDatas.get(h.getAdapterPosition()));
+            }
+
+            if (mSelector != null) {
+                mSelector.select(mDatas.get(h.getAdapterPosition()));
+            }
         }
     }
 
@@ -128,11 +166,17 @@ public class PlayManageAdapter extends RecyclerView.Adapter implements View.OnCl
 
     @Override
     public boolean onLongClick(View v) {
+        if (mDatas == null || mDatas.size() == 0) {
+            return false;
+        }
+
         if (!select) {
             select = true;
             H h = (H) v.getTag();
             mSelected.add(h.getAdapterPosition());
-            mFragment.showDelete();
+            if (mFragment != null) {
+                mFragment.showDelete();
+            }
             notifyDataSetChanged();
         }
 

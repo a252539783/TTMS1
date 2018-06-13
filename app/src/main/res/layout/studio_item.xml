@@ -19,7 +19,17 @@
         android:paddingRight="16dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
         android:id="@+id/studio_item_seat"
         android:text="55座位"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:visibility="gone"
+        android:id="@+id/studio_item_check"/>
 
 </RelativeLayout>

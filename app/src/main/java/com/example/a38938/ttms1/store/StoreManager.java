@@ -9,6 +9,7 @@ import android.os.Message;
 import com.example.a38938.ttms1.data.Data;
 import com.example.a38938.ttms1.data.PlayData;
 import com.example.a38938.ttms1.data.ScheduleData;
+import com.example.a38938.ttms1.data.StudioData;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -25,8 +26,9 @@ public class StoreManager {
 
     private static final int INSERT_DATA = 0;
     private static final int GET_ALL = 1;
-   public static final int DELETE_DATA = 2;
+    public static final int DELETE_DATA = 2;
     public static final int UPDATE_DATA = 3;
+    private static final int GET_IN_TIME = 4;
 
     Context mAppContext = null;
     private StoreBusiness mBusiness;
@@ -65,6 +67,16 @@ public class StoreManager {
                             mBusiness.update(d);
                             break;
                         }
+                        case GET_IN_TIME: {
+                            GetData d = (GetData) msg.obj;
+                            List<Data> datas = mBusiness.query(d.type,
+                                    StoreBusiness.ROW_START  + " between " + d.start + " and " + d.end +
+                                            (d.play == -1 ? "" : (" and " + StoreBusiness.ROW_PLAY + " = " + d.play)));
+                            if (d.l.get() != null) {
+                                d.l.get().onReceive(datas);
+                            }
+                            break;
+                        }
                     }
                 }
             };
@@ -100,6 +112,22 @@ public class StoreManager {
         mHandler.sendMessage(mHandler.obtainMessage(GET_ALL, new GetData(type, l)));
     }
 
+    public void getSchedules(long play, long start, long end, OnDataGetListener<ScheduleData> l) {
+        GetData gd = new GetData(ScheduleData.class, l);
+        gd.start = start;
+        gd.end = end;
+        gd.play = play;
+        mHandler.sendMessage(mHandler.obtainMessage(GET_IN_TIME, gd));
+    }
+
+    public void getSchedules(long start, long end, OnDataGetListener<ScheduleData> l) {
+        GetData gd = new GetData(ScheduleData.class, l);
+        gd.start = start;
+        gd.end = end;
+        gd.play = -1;
+        mHandler.sendMessage(mHandler.obtainMessage(GET_IN_TIME, gd));
+    }
+
     public void delete(Data data) {
         mHandler.sendMessage(mHandler.obtainMessage(DELETE_DATA, data));
     }
@@ -108,8 +136,19 @@ public class StoreManager {
         mHandler.sendMessage(mHandler.obtainMessage(UPDATE_DATA, data));
     }
 
+    void cachePlay(long id) {
+        mBusiness.query(PlayData.class, StoreBusiness.ROW_ID + " = " + id);
+    }
+
+    void cacheStudio(long id) {
+        mBusiness.query(StudioData.class, StoreBusiness.ROW_ID + " = " + id);
+    }
+
     static class GetData {
         Class type;
+        long start;
+        long end;
+        long play;
         WeakReference<OnDataGetListener> l;
         public GetData(Class t, OnDataGetListener l) {
             type = t;

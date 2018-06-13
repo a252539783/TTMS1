@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center"
+        android:text="0000-00"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/schedule_t_day"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="上个月"
+        android:gravity="center_vertical"
+        android:layout_toLeftOf="@id/schedule_t_day"
+        android:id="@+id/schedule_t_previous"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="下个月"
+        android:layout_toRightOf="@id/schedule_t_day"
+        android:gravity="center_vertical"
+        android:id="@+id/schedule_t_next"/>
+
+
+
+    <me.crosswall.lib.coverflow.core.PagerContainer
+        android:id="@+id/schedule_pager_container"
+        android:layout_width="match_parent"
+        android:layout_weight="0"
+        android:layout_below="@id/schedule_t_day"
+        android:layout_height="150dp">
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="150dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:id="@+id/schedule_pager">
+        </android.support.v4.view.ViewPager>
+
+    </me.crosswall.lib.coverflow.core.PagerContainer>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/schedule_list"
+        android:layout_below="@id/schedule_pager_container"
+        />
+
+</RelativeLayout>

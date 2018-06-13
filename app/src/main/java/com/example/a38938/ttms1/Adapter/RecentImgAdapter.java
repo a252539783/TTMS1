@@ -1,5 +1,6 @@
 package com.example.a38938.ttms1.Adapter;
 
+import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.a38938.ttms1.R;
+import com.example.a38938.ttms1.data.PlayData;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by LQF on 2018/5/28.
@@ -16,11 +22,18 @@ import com.example.a38938.ttms1.R;
 
 public class RecentImgAdapter extends PagerAdapter {
 
-    private View[] mImgs = new View[5];
+    private ArrayList<ImageView> mImgs = new ArrayList<>();
+    private List<PlayData> mDatas;
 
     @Override
     public int getCount() {
-        return 5;
+        return mDatas == null ?
+                0 : (mDatas.size() < 5 ?
+                mDatas.size() : 5);
+    }
+
+    public List<PlayData> getData() {
+        return mDatas;
     }
 
     @Override
@@ -28,23 +41,33 @@ public class RecentImgAdapter extends PagerAdapter {
         return view == object;
     }
 
+    public void setData(List<PlayData> data) {
+        mDatas = data;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        if (mImgs[position] == null) {
-            View img = LayoutInflater.from(container.getContext()).inflate(R.layout.img_item, container, false);
-            img.getLayoutParams().height = 300;
-            img.setLayoutParams(img.getLayoutParams());
+        if (mImgs.size() <= position || mImgs.get(position) == null) {
+            ImageView img = (ImageView) LayoutInflater.from(container.getContext()).inflate(R.layout.img_item, container, false);
 //            img.setImageResource(R.drawable.aaa);
-            mImgs[position] = img;
+            mImgs.add(position, img);
         }
 
-        if (mImgs[position].getParent() == null)
-            container.addView(mImgs[position]);
-        return mImgs[position];
+        if (mImgs.get(position).getParent() == null)
+            container.addView(mImgs.get(position));
+
+        mImgs.get(position).setImageURI(Uri.fromFile(new File(mDatas.get(position).imgPath)));
+        return mImgs.get(position);
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView(mImgs[position]);
+        container.removeView(mImgs.get(position));
     }
 }

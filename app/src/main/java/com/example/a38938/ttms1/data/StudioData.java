@@ -107,4 +107,18 @@ public class StudioData extends Data {
 
         return data;
     }
+
+    /**
+     * 有这个方法是为了让所有的更改都统一在同一个对象上，方便缓存的更新
+     * @param data
+     */
+    public void set(StudioData data) {
+        id = data.id;
+        seat = data.seat;
+        rows = data.rows;
+        columns = data.columns;
+        inval = data.inval;
+        invalidNum = data.invalidNum;
+        name = data.name;
+    }
 }

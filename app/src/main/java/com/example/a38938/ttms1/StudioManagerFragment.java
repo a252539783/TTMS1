@@ -1,10 +1,12 @@
 package com.example.a38938.ttms1;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -89,7 +91,9 @@ public class StudioManagerFragment extends MFragment implements View.OnClickList
         if (v == mAddButton) {
             showSeatManageDialog(v, new StudioData());
         } else if (v == mDeleteButton) {
+            showDeleteDialog();
         } else if (v == mSelectButton) {
+            mAdapter.selectAll();
         } else if (v == mAddRowButton) {
             mCurrentStudio.setRowCol(mCurrentStudio.rows() + 1, mCurrentStudio.columns());
             mSeatView.setData(mCurrentStudio.rows(), mCurrentStudio.columns());
@@ -172,5 +176,53 @@ public class StudioManagerFragment extends MFragment implements View.OnClickList
         mSeatDialog.show();
         mSeatView.setManage(true);
         mSeatView.setData(data.rows(), data.columns());
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (mAdapter.selecting()) {
+            mAdapter.cancelSelect();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void showDelete() {
+        mAddButton.setVisibility(View.GONE);
+        mDeleteButton.setVisibility(View.VISIBLE);
+        mSelectButton.setVisibility(View.VISIBLE);
+    }
+
+    public void hideDelete() {
+        mAddButton.setVisibility(View.VISIBLE);
+        mDeleteButton.setVisibility(View.GONE);
+        mSelectButton.setVisibility(View.GONE);
+    }
+
+
+    private AlertDialog mDeleteDialog;
+    private void showDeleteDialog() {
+        if (mDeleteDialog == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            mDeleteDialog = builder.setTitle("确认是否删除?")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mDeleteDialog.dismiss();
+                            mAdapter.delete();
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mDeleteDialog.dismiss();
+                        }
+                    })
+                    .setCancelable(true)
+                    .show();
+        } else {
+            mDeleteDialog.show();
+        }
     }
 }
