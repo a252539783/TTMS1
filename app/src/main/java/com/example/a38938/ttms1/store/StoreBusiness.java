@@ -35,9 +35,16 @@ public class StoreBusiness {
     public static final String ROW_COLUMN = "columns";
     public static final String ROW_INVALID = "invalid";
 
+    public static final String ROW_SOLD = "sold";
+
+    public static final String ROW_SCHEDULE = "schedule";
+    public static final String ROW_SEAT_X = "seatx";
+    public static final String ROW_SEAT_Y = "seaty";
+
     public static final String TABLE_SCHEDULE = "schedule";
     public static final String TABLE_PLAY = "play";
     public static final String TABLE_STUDIO = "studio";
+    public static final String TABLE_TICKET = "ticket";
 
     private StoreHelper mHelper;
 

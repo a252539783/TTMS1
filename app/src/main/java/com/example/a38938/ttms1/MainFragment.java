@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.example.a38938.ttms1.Adapter.RecentImgAdapter;
 import com.example.a38938.ttms1.Adapter.ScheduleListAdapter;
+import com.example.a38938.ttms1.Adapter.Selector;
 import com.example.a38938.ttms1.data.ScheduleData;
 
 import java.util.Arrays;
@@ -37,7 +38,12 @@ public class MainFragment extends MFragment {
     private PagerContainer mPagerContainer = null;
 
     private CoverFlow mCover = null;
-    private ScheduleListAdapter mAdapter = new ScheduleListAdapter(null);
+    private ScheduleListAdapter mAdapter = new ScheduleListAdapter(new Selector<ScheduleData>() {
+        @Override
+        public void select(ScheduleData data) {
+
+        }
+    });
 
     @Nullable
     @Override

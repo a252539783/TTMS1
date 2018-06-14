@@ -35,6 +35,10 @@ public class ScheduleListAdapter extends RecyclerView.Adapter implements View.On
         mFragment = fra;
     }
 
+    public ScheduleListAdapter(Selector<ScheduleData> s) {
+        mSelector = s;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         H h = new H(LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_item, parent, false));
@@ -51,6 +55,7 @@ public class ScheduleListAdapter extends RecyclerView.Adapter implements View.On
         h.end.setText(TimeUtil.getHour(data.end) + "结束");
         h.studio.setText(String.valueOf(data.studio));
         h.price.setText("¥" + data.price);
+        h.seat.setText("余座" + (data.getStudio().seat - data.soldNum));
 
         if (select) {
             h.check.setVisibility(View.VISIBLE);
@@ -107,7 +112,10 @@ public class ScheduleListAdapter extends RecyclerView.Adapter implements View.On
     public void onClick(View v) {
         H h = (H) v.getTag();
         if (mFragment != null)
-        mFragment.showEditDialog(mData.get(h.getAdapterPosition()).copy());
+            mFragment.showEditDialog(mData.get(h.getAdapterPosition()).copy());
+        else if (mSelector != null) {
+            mSelector.select(mData.get(h.getAdapterPosition()).copy());
+        }
     }
 
     public void setData(ScheduleData data) {
@@ -130,7 +138,7 @@ public class ScheduleListAdapter extends RecyclerView.Adapter implements View.On
 
     @Override
     public boolean onLongClick(View v) {
-        if (mData == null || mData.size() == 0) {
+        if (mData == null || mData.size() == 0 || mFragment == null) {
             return false;
         }
 

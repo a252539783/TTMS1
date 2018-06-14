@@ -59,6 +59,17 @@ public class ScheduleManageFragment extends MFragment implements View.OnClickLis
 
     private Calendar mCalendar = Calendar.getInstance();
     private int year, month, day;
+    private Selector<ScheduleData> mSelector = null;
+
+    @SuppressLint("ValidFragment")
+    ScheduleManageFragment(){
+        super();
+    }
+
+    @SuppressLint("ValidFragment")
+    ScheduleManageFragment(Selector<ScheduleData> s) {
+        setSelect(s);
+    }
 
     @Nullable
     @Override
@@ -66,15 +77,24 @@ public class ScheduleManageFragment extends MFragment implements View.OnClickLis
         if (mView == null) {
             mView = (ViewGroup) inflater.inflate(R.layout.schedule_manage, container, false);
             mActionBar = (ViewGroup) inflater.inflate(R.layout.play_manage_actionbar, container, false);
+            if (mSelector == null) {
+                mAdapter = new ScheduleListAdapter(this);
+            } else {
+                mAdapter = new ScheduleListAdapter(mSelector);
+            }
         }
 
         init();
         return mView;
     }
 
+    public void setSelect(Selector<ScheduleData> s) {
+        mSelector = s;
+    }
+
     //    private ScheduleView mScheduleView;
     private RecyclerView mScheduleList;
-    private ScheduleListAdapter mAdapter = new ScheduleListAdapter(this);
+    private ScheduleListAdapter mAdapter = null;
     private ViewPager mPager = null;
     private RecentImgAdapter mPlayImgAdapter = new RecentImgAdapter();
     private PagerContainer mPagerContainer = null;
@@ -194,7 +214,9 @@ public class ScheduleManageFragment extends MFragment implements View.OnClickLis
             mPlayImgAdapter = new RecentImgAdapter();
             mPager.setAdapter(mPlayImgAdapter);
         }
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setCustomView(mActionBar);
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setCustomView(mActionBar);
+        } catch (Exception e){}
         updateTime();
         //StoreManager.get().getAllDatas(PlayData.class, mGetPlayImgListener);
     }
@@ -343,7 +365,7 @@ public class ScheduleManageFragment extends MFragment implements View.OnClickLis
         }
     };
 
-    private void updateTime() {
+    public void updateTime() {
         year = mCalendar.get(Calendar.YEAR);
         month = mCalendar.get(Calendar.MONTH) + 1;
         day = mCalendar.get(Calendar.DAY_OF_MONTH);

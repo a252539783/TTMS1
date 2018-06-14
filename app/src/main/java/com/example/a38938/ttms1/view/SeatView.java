@@ -385,6 +385,10 @@ public class SeatView extends View {
             lineNumbers.add((i + 1) + "");
         }
 
+        if (selects != null) {
+            selects.clear();
+        }
+
         matrix.reset();
         matrix.postTranslate(numberWidth + spacing, headHeight + screenHeight + borderHeight + verSpacing);
     }

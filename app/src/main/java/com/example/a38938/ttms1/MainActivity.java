@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity
     private MFragment mPlayFragment = null;
     private MFragment mStudioManageFragment = null;
     private MFragment mScheduleManageFragment = null;
+    private MFragment mSaleFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,9 +131,11 @@ public class MainActivity extends AppCompatActivity
 
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, mCurrent = mScheduleManageFragment).commit();
         } else if (id == R.id.tickets_management) {
-            Intent tickets_intent = new Intent(MainActivity.this,Tickets_Activity.class);
-            startActivity(tickets_intent);
+            if (mSaleFragment == null) {
+                mSaleFragment = new SaleFragment();
+            }
 
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, mCurrent = mSaleFragment).commit();
         } else if (id == R.id.analysis_management) {
             Intent analysis_intent = new Intent(MainActivity.this,Analysis_Activity.class);
             startActivity(analysis_intent);

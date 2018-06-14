@@ -49,8 +49,14 @@ public class StudioData extends Data {
         }
 
         inval[row][column] = !inval[row][column];
-        invalidNum++;
-        seat--;
+
+        if (inval[row][column]) {
+            invalidNum++;
+            seat--;
+        } else {
+            invalidNum--;
+            seat++;
+        }
     }
 
     public boolean isValid(int r, int c) {

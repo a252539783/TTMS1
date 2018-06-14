@@ -10,6 +10,7 @@ import com.example.a38938.ttms1.data.Data;
 import com.example.a38938.ttms1.data.PlayData;
 import com.example.a38938.ttms1.data.ScheduleData;
 import com.example.a38938.ttms1.data.StudioData;
+import com.example.a38938.ttms1.data.TicketData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ public abstract class AccessHelper<T> {
             private int STUDIO_INDEX = -1;
             private int PRICE_INDEX = -1;
             private int ID_INDEX = -1;
+            private int SOLD_INDEX = -1;
 
             @Override
             public long insertInner(ScheduleData data, SQLiteDatabase db) {
@@ -50,6 +52,7 @@ public abstract class AccessHelper<T> {
                         STUDIO_INDEX = c.getColumnIndex(StoreBusiness.ROW_STUDIO);
                         PRICE_INDEX = c.getColumnIndex(StoreBusiness.ROW_PRICE);
                         ID_INDEX = c.getColumnIndex(StoreBusiness.ROW_ID);
+                        SOLD_INDEX = c.getColumnIndex(StoreBusiness.ROW_SOLD);
                     }
 
                     List<ScheduleData> datas = new ArrayList<>(c.getCount());
@@ -68,6 +71,12 @@ public abstract class AccessHelper<T> {
 
                         if (sStudios.get(data.studio) == null) {
                             StoreManager.get().cacheStudio(data.studio);
+                        }
+                        String[] sold = c.getString(SOLD_INDEX).split(",");
+                        if (sold.length >= 2) {
+                            for (int i = 0; i < sold.length; i++) {
+                                data.addSold(Integer.decode(sold[i]), Integer.decode(sold[++i]));
+                            }
                         }
                         sSchedules.put(data.id, data);
                         datas.add(data);
@@ -203,6 +212,56 @@ public abstract class AccessHelper<T> {
             @Override
             public void updateInner(StudioData data, SQLiteDatabase db) {
                 db.update(StoreBusiness.TABLE_STUDIO, data.contentValues(), StoreBusiness.ROW_ID + " = " + data.id, null);
+            }
+        });
+
+
+        mHelpers.put(TicketData.class, new AccessHelper<TicketData>() {
+            private int ROW_SCHEDULE = -1;
+            private int ROW_SEAT_X = -1;
+            private int ROW_SEAT_Y = -1;
+            private int ROW_ID = -1;
+
+            @Override
+            public long insertInner(TicketData data, SQLiteDatabase db) {
+                return db.insert(StoreBusiness.TABLE_TICKET, null, data.contentValues());
+            }
+
+            @Override
+            public List<TicketData> queryInner(String where, SQLiteDatabase db) {
+                Cursor c = db.query(StoreBusiness.TABLE_PLAY, null, where, null, null, null, null);
+                try {
+                    if (ROW_ID == -1) {
+                        ROW_SCHEDULE = c.getColumnIndex(StoreBusiness.ROW_SCHEDULE);
+                        ROW_SEAT_X = c.getColumnIndex(StoreBusiness.ROW_SEAT_X);
+                        ROW_SEAT_Y = c.getColumnIndex(StoreBusiness.ROW_SEAT_Y);
+                        ROW_ID = c.getColumnIndex(StoreBusiness.ROW_ID);
+                    }
+
+                    List<TicketData> datas = new ArrayList<>(c.getCount());
+                    while (c.moveToNext()) {
+                        TicketData data = new TicketData();
+                        data.schedule = c.getLong(ROW_SCHEDULE);
+                        data.seat_x = c.getInt(ROW_SEAT_X);
+                        data.seat_y = c.getInt(ROW_SEAT_Y);
+                        data.id = c.getLong(ROW_ID);
+
+                        datas.add(data);
+                    }
+                    return datas;
+                } finally {
+                    c.close();
+                }
+            }
+
+            @Override
+            public void deleteInner(TicketData data, SQLiteDatabase db) {
+                db.delete(StoreBusiness.TABLE_TICKET, StoreBusiness.ROW_ID + " = " + data.id, null);
+            }
+
+            @Override
+            public void updateInner(TicketData data, SQLiteDatabase db) {
+                db.update(StoreBusiness.TABLE_TICKET, data.contentValues(), StoreBusiness.ROW_ID + " = " + data.id, null);
             }
         });
     }

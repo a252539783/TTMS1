@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="200dp">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:id="@+id/ticket_img"
+        android:layout_marginLeft="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/aaa"
+        android:maxHeight="160dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/ticket_img"
+        android:gravity="center"
+        android:id="@+id/ticket_play"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:paddingLeft="16dp"
+        android:text="这是剧目名称"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="5号厅"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:id="@+id/ticket_studio"
+        android:paddingRight="16dp"
+        android:gravity="center"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_alignParentRight="true"
+        android:paddingRight="16dp"
+        android:id="@+id/ticket_seat"
+        android:layout_below="@id/ticket_studio"
+        android:text="第10排10列"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="2017/6/14 16:42-17:42"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/ticket_time"
+        android:layout_below="@id/ticket_seat"
+        android:paddingRight="16dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_alignParentRight="true"
+        android:paddingRight="16dp"
+        android:id="@+id/ticket_price"
+        android:layout_below="@id/ticket_seat"
+        android:text="¥666"/>
+
+</RelativeLayout>

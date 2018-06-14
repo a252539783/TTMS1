@@ -18,6 +18,7 @@ public class StoreHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_SCHEDULE);
         db.execSQL(SQL_CREATE_PLAY);
         db.execSQL(SQL_CREATE_STUDIO);
+        db.execSQL(SQL_CREATE_TICKET);
     }
 
     @Override
@@ -47,9 +48,7 @@ public class StoreHelper extends SQLiteOpenHelper {
             "invalid text);";
 
     private static final String SQL_CREATE_TICKET = "CREATE TABLE IF NOT EXISTS ticket(id integer NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
-            "name text,\n" +
-            "seat integer,\n" +
-            "rows integer,\n" +
-            "columns integer,\n" +
-            "invalid text);";
+            "schedule integer,\n" +
+            "seatx integer,\n" +
+            "seaty integer);";
 }
