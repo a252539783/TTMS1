@@ -16,6 +16,7 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -936,7 +937,7 @@ public class SeatView extends View {
         }
     }
 
-    Handler handler = new Handler();
+    Handler handler = new Handler(Looper.getMainLooper());
 
     ArrayList<Integer> selects = new ArrayList<>();
 

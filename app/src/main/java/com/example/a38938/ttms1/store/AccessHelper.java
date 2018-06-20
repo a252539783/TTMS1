@@ -11,6 +11,7 @@ import com.example.a38938.ttms1.data.PlayData;
 import com.example.a38938.ttms1.data.ScheduleData;
 import com.example.a38938.ttms1.data.StudioData;
 import com.example.a38938.ttms1.data.TicketData;
+import com.example.a38938.ttms1.data.UserData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -262,6 +263,58 @@ public abstract class AccessHelper<T> {
             @Override
             public void updateInner(TicketData data, SQLiteDatabase db) {
                 db.update(StoreBusiness.TABLE_TICKET, data.contentValues(), StoreBusiness.ROW_ID + " = " + data.id, null);
+            }
+        });
+
+        mHelpers.put(UserData.class, new AccessHelper<UserData>() {
+            private int ROW_PWD = -1;
+            private int ROW_USR = -1;
+            private int ROW_NAME = -1;
+            private int ROW_PERMISSION = -1;
+            private int ROW_ID = -1;
+
+            @Override
+            public long insertInner(UserData data, SQLiteDatabase db) {
+                return db.insert(StoreBusiness.TABLE_USER, null, data.contentValues());
+            }
+
+            @Override
+            public List<UserData> queryInner(String where, SQLiteDatabase db) {
+                Cursor c = db.query(StoreBusiness.TABLE_USER, null, where, null, null, null, null);
+                try {
+                    if (ROW_ID == -1) {
+                        ROW_NAME = c.getColumnIndex(StoreBusiness.ROW_NAME);
+                        ROW_PWD = c.getColumnIndex(StoreBusiness.ROW_PWD);
+                        ROW_USR = c.getColumnIndex(StoreBusiness.ROW_USR);
+                        ROW_PERMISSION = c.getColumnIndex(StoreBusiness.ROW_PERMISSION);
+                        ROW_ID = c.getColumnIndex(StoreBusiness.ROW_ID);
+                    }
+
+                    List<UserData> datas = new ArrayList<>(c.getCount());
+                    while (c.moveToNext()) {
+                        UserData data = new UserData();
+                        data.name = c.getString(ROW_NAME);
+                        data.passwd = c.getString(ROW_PWD);
+                        data.usrname = c.getString(ROW_USR);
+                        data.permission = c.getInt(ROW_PERMISSION);
+                        data.id = c.getLong(ROW_ID);
+
+                        datas.add(data);
+                    }
+                    return datas;
+                } finally {
+                    c.close();
+                }
+            }
+
+            @Override
+            public void deleteInner(UserData data, SQLiteDatabase db) {
+                db.delete(StoreBusiness.TABLE_USER, StoreBusiness.ROW_ID + " = " + data.id, null);
+            }
+
+            @Override
+            public void updateInner(UserData data, SQLiteDatabase db) {
+                db.update(StoreBusiness.TABLE_USER, data.contentValues(), StoreBusiness.ROW_ID + " = " + data.id, null);
             }
         });
     }

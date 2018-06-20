@@ -41,10 +41,15 @@ public class StoreBusiness {
     public static final String ROW_SEAT_X = "seatx";
     public static final String ROW_SEAT_Y = "seaty";
 
+    public static final String ROW_USR = "usrname";
+    public static final String ROW_PWD = "passwd";
+    public static final String ROW_PERMISSION = "permission";
+
     public static final String TABLE_SCHEDULE = "schedule";
     public static final String TABLE_PLAY = "play";
     public static final String TABLE_STUDIO = "studio";
     public static final String TABLE_TICKET = "ticket";
+    public static final String TABLE_USER = "user";
 
     private StoreHelper mHelper;
 

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -15,6 +17,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.example.a38938.ttms1.data.UserData;
+import com.example.a38938.ttms1.store.OnDataGetListener;
+import com.example.a38938.ttms1.store.StoreManager;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
@@ -26,6 +35,32 @@ public class MainActivity extends AppCompatActivity
     private MFragment mStudioManageFragment = null;
     private MFragment mScheduleManageFragment = null;
     private MFragment mSaleFragment = null;
+    private MFragment mUserFragment = null;
+    private MFragment mLoginFragment = null;
+
+    private int lastPage = -1;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+
+    private OnDataGetListener<UserData> mLoginListener = new OnDataGetListener<UserData>() {
+        @Override
+        public void onReceive(List<UserData> datas) {
+            if (datas.size() != 0) {
+                Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+
+                if (lastPage != -1 && lastPage != R.id.login) {
+                    onGoto(lastPage);
+                } else {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                            drawer.openDrawer(GravityCompat.START);
+                        }
+                    });
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +81,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mMainFragment = mCurrent = new MainFragment();
-        getSupportFragmentManager().beginTransaction().replace((R.id.main_fragment), mCurrent).commit();
+        onGoto(R.id.schedule_management);
 //        List<PlayData> ds;
 //        PlayData dd = new PlayData();
 //        dd.score = 3.3f;
@@ -106,11 +140,26 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        onGoto(id);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void onGoto(int id) {
+        lastPage = id;
+        if (!StoreManager.get().isLoged()) {
+            id = R.id.login;
+        } else if (id == R.id.login) {
+            Toast.makeText(this, "已经登录了", Toast.LENGTH_SHORT).show();
+        }
 
         if (id == R.id.usrs_management) {
-            Intent user_intent = new Intent(MainActivity.this,Users_Activity.class);
-            startActivity(user_intent);
-                        // Handle the camera action
+            if (mUserFragment == null) {
+                mUserFragment = new UserFragment();
+            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, mCurrent = mUserFragment).commit();
         } else if (id == R.id.play_management) {
             if (mPlayFragment == null) {
                 mPlayFragment = new PlayManageFragment();
@@ -136,19 +185,13 @@ public class MainActivity extends AppCompatActivity
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, mCurrent = mSaleFragment).commit();
-        } else if (id == R.id.analysis_management) {
-            Intent analysis_intent = new Intent(MainActivity.this,Analysis_Activity.class);
-            startActivity(analysis_intent);
-
         }else if(id == R.id.login){
-            Intent login_intent = new Intent(MainActivity.this,Login_Activity.class);
-            startActivity(login_intent);
-        }else if(id == R.id.main){
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, mCurrent = mMainFragment).commit();
-        }
+            if (mLoginFragment == null) {
+                mLoginFragment = new LoginFragment();
+                ((LoginFragment)mLoginFragment).setListener(mLoginListener);
+            }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, mCurrent = mLoginFragment).commit();
+        }
     }
 }

@@ -4,10 +4,10 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/main"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="首页" />
+        <!--<item-->
+            <!--android:id="@+id/main"-->
+            <!--android:icon="@drawable/ic_menu_manage"-->
+            <!--android:title="首页" />-->
         <item
             android:id="@+id/login"
             android:icon="@drawable/ic_menu_manage"
@@ -32,10 +32,10 @@
             android:id="@+id/tickets_management"
             android:icon="@drawable/ic_menu_manage"
             android:title="购票" />
-        <item
-            android:id="@+id/analysis_management"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="销售分析" />
+        <!--<item-->
+            <!--android:id="@+id/analysis_management"-->
+            <!--android:icon="@drawable/ic_menu_manage"-->
+            <!--android:title="销售分析" />-->
     </group>
 
 

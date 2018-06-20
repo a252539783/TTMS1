@@ -10,6 +10,7 @@ import com.example.a38938.ttms1.data.Data;
 import com.example.a38938.ttms1.data.PlayData;
 import com.example.a38938.ttms1.data.ScheduleData;
 import com.example.a38938.ttms1.data.StudioData;
+import com.example.a38938.ttms1.data.UserData;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -29,10 +30,13 @@ public class StoreManager {
     public static final int DELETE_DATA = 2;
     public static final int UPDATE_DATA = 3;
     private static final int GET_IN_TIME = 4;
+    private static final int LOGIN = 5;
 
     Context mAppContext = null;
     private StoreBusiness mBusiness;
     private Handler mHandler;
+    private UserData mCurrentUser = null;
+
     private HandlerThread mThread = new HandlerThread("storemanager") {
         @SuppressLint("HandlerLeak")   //全局单例
         @Override
@@ -72,6 +76,20 @@ public class StoreManager {
                             List<Data> datas = mBusiness.query(d.type,
                                     StoreBusiness.ROW_START  + " between " + d.start + " and " + d.end +
                                             (d.play == -1 ? "" : (" and " + StoreBusiness.ROW_PLAY + " = " + d.play)));
+                            if (d.l.get() != null) {
+                                d.l.get().onReceive(datas);
+                            }
+                            break;
+                        }
+                        case LOGIN: {
+                            GetData d = (GetData) msg.obj;
+                            List<Data> datas = mBusiness.query(d.type,
+                                    StoreBusiness.ROW_USR + " = \'" + d.usr + "\' and " +
+                            StoreBusiness.ROW_PWD + " = \'" + d.pwd + "\'");
+                            if (datas.size() != 0) {
+                                mCurrentUser = (UserData) datas.get(0);
+                            }
+
                             if (d.l.get() != null) {
                                 d.l.get().onReceive(datas);
                             }
@@ -136,6 +154,25 @@ public class StoreManager {
         mHandler.sendMessage(mHandler.obtainMessage(UPDATE_DATA, data));
     }
 
+    public boolean isLoged() {
+        return mCurrentUser != null;
+    }
+
+    public boolean hasPermission(int action) {
+        if (mCurrentUser == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void login(String usr, String pwd, OnDataGetListener<UserData> l) {
+        GetData gd = new GetData(UserData.class, l);
+        gd.usr = usr;
+        gd.pwd = pwd;
+        mHandler.sendMessage(mHandler.obtainMessage(LOGIN, gd));
+    }
+
     void cachePlay(long id) {
         mBusiness.query(PlayData.class, StoreBusiness.ROW_ID + " = " + id);
     }
@@ -149,6 +186,7 @@ public class StoreManager {
         long start;
         long end;
         long play;
+        String usr, pwd;
         WeakReference<OnDataGetListener> l;
         public GetData(Class t, OnDataGetListener l) {
             type = t;

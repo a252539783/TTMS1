@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="120dp">
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:paddingLeft="16dp"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:id="@+id/user_edit_id"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_toRightOf="@id/user_edit_id"
+        android:id="@+id/user_edit_t_usrname"
+        android:text="用户名"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@id/user_edit_t_usrname"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:minWidth="100dp"
+        android:id="@+id/user_edit_e_usrname"
+        />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/user_edit_t_name"
+        android:text="名称"/>
+
+    <EditText
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/user_edit_t_name"
+        android:id="@+id/user_edit_e_name"
+        />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/user_edit_e_name"
+        android:id="@+id/user_edit_t_pwd"
+        android:text="密码"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:id="@+id/user_edit_e_passwd"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/user_edit_t_pwd"
+        android:minWidth="100dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="保存"
+        android:id="@+id/user_edit_save"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        />
+
+</RelativeLayout>

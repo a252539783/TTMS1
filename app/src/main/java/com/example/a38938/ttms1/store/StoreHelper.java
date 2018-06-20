@@ -19,6 +19,7 @@ public class StoreHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PLAY);
         db.execSQL(SQL_CREATE_STUDIO);
         db.execSQL(SQL_CREATE_TICKET);
+        db.execSQL(SQL_CREATE_USER);
     }
 
     @Override
@@ -51,4 +52,10 @@ public class StoreHelper extends SQLiteOpenHelper {
             "schedule integer,\n" +
             "seatx integer,\n" +
             "seaty integer);";
+
+    private static final String SQL_CREATE_USER = "CREATE TABLE IF NOT EXISTS user(id integer NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
+            "name text,\n" +
+            "usrname text,\n" +
+            "passwd text, \n" +
+            "permission integer);";
 }
