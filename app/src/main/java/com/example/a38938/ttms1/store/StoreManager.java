@@ -130,6 +130,10 @@ public class StoreManager {
                                 for (Data dd : datas) {
                                     AccessHelper.sStudios.put(dd.id, (StudioData) dd);
                                 }
+                            } else if (d.type.getName().equals("ScheduleData")) {
+                                for (Data dd : datas) {
+                                    AccessHelper.sSchedules.put(dd.id, (ScheduleData) dd);
+                                }
                             }
                             if (d.l.get() != null) {
                                 d.l.get().onReceive(datas);
@@ -220,21 +224,22 @@ public class StoreManager {
                                         datas = new Gson().fromJson(response.body().string(),
                                                 getListType(ScheduleData.class));
                                     }
+
+                                    for (Data dd : datas) {
+                                        ScheduleData sd = (ScheduleData) dd;
+                                        if (AccessHelper.sPlays.get(sd.play) == null) {
+                                            cachePlay(0);
+                                        }
+
+                                        if (AccessHelper.sStudios.get(sd.studio) == null) {
+                                            cacheStudio(0);
+                                        }
+
+                                        AccessHelper.sSchedules.put(sd.id, sd);
+                                    }
                                 } catch (Exception e) {
                                     Log.e("xx", e.toString());
                                 }
-                            }
-
-                            for (Data dd : datas) {
-                                ScheduleData sd = (ScheduleData) dd;
-                                if (AccessHelper.sPlays.get(sd.play) == null) {
-                                    cachePlay(0);
-                                }
-
-                                if (AccessHelper.sStudios.get(sd.studio) == null) {
-                                    cacheStudio(0);
-                                }
-                                AccessHelper.sSchedules.put(sd.id, sd);
                             }
 
                             if (d.l.get() != null) {
