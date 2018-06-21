@@ -118,12 +118,20 @@ public class StoreManager {
         mHandler.sendMessage(mHandler.obtainMessage(INSERT_DATA, data));
     }
 
+    public long insertDirectly(Data data) {
+        return mBusiness.insert(data);
+    }
+
     public List<ScheduleData> searchScheduleByPlay(int playId) {
         return mBusiness.query(ScheduleData.class, StoreBusiness.ROW_PLAY + " = " + playId);
     }
 
     public List<PlayData> getPlays() {
         return mBusiness.query(PlayData.class, null);
+    }
+
+    public <T extends Data> List<T> getAllDirectly(Class type) {
+        return mBusiness.query(type, null);
     }
 
     public <T extends Data> void getAllDatas(Class type, OnDataGetListener<T> l) {
@@ -144,6 +152,17 @@ public class StoreManager {
         gd.end = end;
         gd.play = -1;
         mHandler.sendMessage(mHandler.obtainMessage(GET_IN_TIME, gd));
+    }
+
+    public List<ScheduleData> getSchedulesDirectly(long start, long end) {
+        return mBusiness.query(ScheduleData.class,
+                StoreBusiness.ROW_START  + " between " + start + " and " + end);
+    }
+
+    public List<ScheduleData> getSchedulesDirectly(long start, long end, long play) {
+        return mBusiness.query(ScheduleData.class,
+                StoreBusiness.ROW_START  + " between " + start + " and " + end +
+                        (" and " + StoreBusiness.ROW_PLAY + " = " + play));
     }
 
     public void delete(Data data) {
@@ -171,6 +190,17 @@ public class StoreManager {
         gd.usr = usr;
         gd.pwd = pwd;
         mHandler.sendMessage(mHandler.obtainMessage(LOGIN, gd));
+    }
+
+    public String loginDirectly(String usr, String pwd) {
+        List<Data> datas = mBusiness.query(UserData.class,
+                StoreBusiness.ROW_USR + " = \'" + usr + "\' and " +
+                        StoreBusiness.ROW_PWD + " = \'" + pwd + "\'");
+        if (datas.size() != 0) {
+            return "user";
+        }
+
+        return "no user";
     }
 
     void cachePlay(long id) {
