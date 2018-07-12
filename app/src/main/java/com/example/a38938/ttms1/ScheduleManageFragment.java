@@ -126,6 +126,7 @@ public class ScheduleManageFragment extends MFragment implements View.OnClickLis
                 if (!playSet.contains(d.play)) {
                     plays.add(d.getPlay());
                 }
+                playSet.add(d.play);
             }
 
             mHandler.post(new Runnable() {

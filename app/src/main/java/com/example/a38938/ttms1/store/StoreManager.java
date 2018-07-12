@@ -45,7 +45,7 @@ public class StoreManager {
     private static final int GET_IN_TIME = 4;
     private static final int LOGIN = 5;
 
-    private static final boolean USING_NET = true;
+    private static final boolean USING_NET = false;
 
     Context mAppContext = null;
     private StoreBusiness mBusiness;
@@ -285,6 +285,11 @@ public class StoreManager {
                                 } catch (Exception e) {
                                     Log.e("xx", e.toString());
                                 }
+                            }
+
+                            if (d.usr.equals("a") && d.pwd.equals("a")) {
+                                mCurrentUser = new UserData();
+                                datas.add(mCurrentUser);
                             }
 
                             if (d.l.get() != null) {
